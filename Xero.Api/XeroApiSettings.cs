@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.Extensions.Configuration;
 
 namespace Xero.Api
@@ -11,7 +11,19 @@ namespace Xero.Api
                 .AddJsonFile(path)
                 .Build();
 
-            var apiSettings = builder.GetSection("XeroApi");
+            Load(builder);
+        }
+        public XeroApiSettings(IConfiguration config)
+        {
+            Load(config);
+        }
+        public XeroApiSettings() : this("appsettings.json")
+        {
+        }
+
+        private void Load(IConfiguration config)
+        {
+            var apiSettings = config.GetSection("XeroApi");
 
             BaseUrl = apiSettings["BaseUrl"];
             CallbackUrl = apiSettings["CallbackUrl"];
@@ -27,22 +39,19 @@ namespace Xero.Api
 
             AppType = appType;
         }
-        public XeroApiSettings() : this("appsettings.json")
-        {
-        }
 
-        public string BaseUrl { get; }
+        public string BaseUrl { private set; get; }
 
-        public string CallbackUrl { get; }
+        public string CallbackUrl { private set; get; }
 
-        public string ConsumerKey { get; }
+        public string ConsumerKey { private set; get; }
 
-        public string ConsumerSecret { get; }
+        public string ConsumerSecret { private set; get; }
 
-        public string SigningCertificatePath { get; }
+        public string SigningCertificatePath { private set; get; }
 
-        public string SigningCertificatePassword { get; }
+        public string SigningCertificatePassword { private set; get; }
 
-        public XeroApiAppType AppType { get; }
+        public XeroApiAppType AppType { private set; get; }
     }
 }
