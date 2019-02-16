@@ -1,4 +1,4 @@
-﻿using Xero.Api.Core;
+using Xero.Api.Core;
 using Xero.Api.Infrastructure.Authenticators;
 using Xero.Api.Infrastructure.Interfaces;
 
